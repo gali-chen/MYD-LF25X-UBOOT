@@ -765,7 +765,10 @@ struct expr *expr_transform(struct expr *e)
 			tmp = e->left.expr;
 			free(e);
 			e = tmp;
-			e->type = e->type == E_EQUAL ? E_UNEQUAL : E_EQUAL;
+			if (e->type == E_EQUAL)
+    e->type = E_UNEQUAL;
+else
+    e->type = E_EQUAL;
 			break;
 		case E_LEQ:
 		case E_GEQ:
