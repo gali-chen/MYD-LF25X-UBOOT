@@ -919,8 +919,8 @@ size_t ZSTD_execSequenceEndSplitLitBuffer(BYTE* op,
     /* bounds checks : careful of address space overflow in 32-bit mode */
     RETURN_ERROR_IF(sequenceLength > (size_t)(oend - op), dstSize_tooSmall, "last match must fit within dstBuffer");
     RETURN_ERROR_IF(sequence.litLength > (size_t)(litLimit - *litPtr), corruption_detected, "try to read beyond literal buffer");
-    assert(op < op + sequenceLength);
-    assert(oLitEnd < op + sequenceLength);
+    assert(sequenceLength <= (size_t)(oend - op));
+	assert((size_t)(oLitEnd - op) >= sequenceLength);
 
     /* copy literals */
     RETURN_ERROR_IF(op > *litPtr && op < *litPtr + sequence.litLength, dstSize_tooSmall, "output should not catch up to and overwrite literal buffer");
