@@ -487,8 +487,10 @@ static unsigned long ubifs_findfile(struct super_block *sb, char *filename)
 	 * Handle root-direcoty ('/')
 	 */
 	inum = root_inum;
-	if (!name || *name == '\0')
-		return inum;
+	if (name == NULL)  
+    return inum;
+if (*name == '\0') 
+    return inum;
 
 	for (;;) {
 		struct inode *inode;
