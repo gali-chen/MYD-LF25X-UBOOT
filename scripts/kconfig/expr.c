@@ -763,28 +763,25 @@ struct expr *expr_transform(struct expr *e)
 		case E_UNEQUAL:
 			// !a='x' -> a!='x'
 			tmp = e->left.expr;
+			e->type = e->type == E_EQUAL ? E_UNEQUAL : E_EQUAL;
 			free(e);
 			e = tmp;
-			if (e->type == E_EQUAL)
-    e->type = E_UNEQUAL;
-else
-    e->type = E_EQUAL;
 			break;
 		case E_LEQ:
 		case E_GEQ:
 			// !a<='x' -> a>'x'
 			tmp = e->left.expr;
+			e->type = e->type == E_LEQ ? E_GTH : E_LTH;
 			free(e);
 			e = tmp;
-			e->type = e->type == E_LEQ ? E_GTH : E_LTH;
 			break;
 		case E_LTH:
 		case E_GTH:
 			// !a<'x' -> a>='x'
 			tmp = e->left.expr;
+			e->type = e->type == E_LTH ? E_GEQ : E_LEQ;
 			free(e);
 			e = tmp;
-			e->type = e->type == E_LTH ? E_GEQ : E_LEQ;
 			break;
 		case E_OR:
 			// !(a || b) -> !a && !b
