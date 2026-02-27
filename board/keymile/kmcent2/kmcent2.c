@@ -291,7 +291,7 @@ int last_stage_init(void)
 void fdt_fixup_fman_mac_addresses(void *blob)
 {
 	int node, ret;
-	char path[24];
+	char path[32];
 	unsigned char mac_addr[6];
 
 	/*
